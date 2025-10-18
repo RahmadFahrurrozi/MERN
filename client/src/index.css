@@ -3,4 +3,11 @@
 
 * {
   font-family: "Outfit", sans-serif;
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
 }
