@@ -1,9 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { Edit, Trash2, MoreHorizontal } from "lucide-react";
 
-const SimpleDropdownMenu = ({ onEdit, onDelete }) => {
+const DropdownAction = ({ onEdit, onDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -19,7 +24,7 @@ const SimpleDropdownMenu = ({ onEdit, onDelete }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleDropdown}
         className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
       >
         <MoreHorizontal className="size-4 text-slate-400 hover:text-slate-600" />
@@ -28,7 +33,8 @@ const SimpleDropdownMenu = ({ onEdit, onDelete }) => {
       {isOpen && (
         <div className="absolute right-0 top-full mt-1 w-40 bg-white rounded-lg shadow-lg border border-slate-200 py-2 z-10">
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               onEdit();
               setIsOpen(false);
             }}
@@ -48,7 +54,8 @@ const SimpleDropdownMenu = ({ onEdit, onDelete }) => {
             <span>Download</span>
           </button> */}
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               onDelete();
               setIsOpen(false);
             }}
@@ -63,4 +70,4 @@ const SimpleDropdownMenu = ({ onEdit, onDelete }) => {
   );
 };
 
-export default SimpleDropdownMenu;
+export default DropdownAction;
